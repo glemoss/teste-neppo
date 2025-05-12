@@ -1,7 +1,10 @@
-import { handleMenuSelection, STATES } from './menu.js';
-import { ask } from './utils.js';
+import { handleMenuSelection } from './menu.js';
+import { findAddressByCep } from '../services/cepService.js';
+import { getWeather } from '../services/weatherService.js';
+import { ask } from '../utils/index.js';
+import { STATES } from './states.js';
 
-export function startBot() {
+export async function startBot() {
   console.log("Bem-vindo ao chatbot da Neppo!");
 
   let currentState = STATES.MENU;
@@ -14,13 +17,17 @@ export function startBot() {
 
       case STATES.CONSULTAR_CLIMA:
         const cidade = ask("Digite a cidade: ");
-        console.log(`Clima em ${cidade}`);
+        const clima = await getWeather(cidade);
+        console.log(`\n${clima}`);
+        console.log('-'.repeat(40));
         currentState = STATES.MENU;
         break;
 
       case STATES.CONSULTAR_CEP:
         const cep = ask("Digite o CEP: ");
-        console.log(`Resultado para ${cep}`);
+        const endereco = await findAddressByCep(cep);
+        console.log(`\n${endereco}`);
+        console.log('-'.repeat(40));
         currentState = STATES.MENU;
         break;
 

@@ -1,12 +1,5 @@
-import { ask } from './utils.js';
-
-export const STATES = {
-  CONSULTAR_CLIMA: 'CONSULTAR_CLIMA',
-  CONSULTAR_CEP: 'CONSULTAR_CEP',
-  EXIT: 'EXIT',
-  MENU: 'MENU',
-};
-
+import { ask } from '../utils/index.js';
+import { STATES } from './states.js';
 export function handleMenuSelection() {
   console.log("\nO que você deseja fazer?");
   console.log("[1] Consultar clima");

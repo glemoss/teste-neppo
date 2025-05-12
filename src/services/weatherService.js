@@ -1,3 +1,5 @@
+import { capitalizeWords } from "../utils/index.js";
+
 async function getCoordinates(city) {
   try {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
@@ -23,6 +25,8 @@ export async function getWeather(city) {
     return coordinates;
   }
 
+  const capitalizedCity = capitalizeWords(city);
+
   try {
     const { latitude, longitude } = coordinates;
     const response = await fetch(
@@ -30,7 +34,7 @@ export async function getWeather(city) {
     );
     const data = await response.json();
 
-    return `Temperatura atual em ${city}: ${data.current.temperature_2m}°C`;
+    return `Temperatura atual em ${capitalizedCity}: ${data.current.temperature_2m}°C`;
   } catch (error) {
     return 'Erro ao consultar temperatura.';
   }
