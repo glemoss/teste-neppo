@@ -1,6 +1,6 @@
 import { startBot } from './bot/index.js';
 
-function main() {
+async function main() {
   startBot();
 }
 
